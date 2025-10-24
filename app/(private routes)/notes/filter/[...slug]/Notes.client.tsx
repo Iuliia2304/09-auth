@@ -2,6 +2,7 @@
 
 import ErrorMessage from "../../../../../components/ErrorMessage/ErrorMessage";
 import NoteList from "../../../../../components/NoteList/NoteList";
+
 import Pagination from "../../../../../components/Pagination/Pagination";
 import SearchBox from "../../../../../components/SearchBox/SearchBox";
 import { fetchNotes } from "../../../../../lib/api/clientApi";
@@ -9,6 +10,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import css from "./NotesPage.module.css";
+
 import Link from "next/link";
 
 interface NotesClientProps {
@@ -18,7 +20,7 @@ interface NotesClientProps {
 export default function NotesClient({ category }: NotesClientProps) {
   const [topic, setTopic] = useState("");
   const [page, setPage] = useState(1);
-  // const router = useRouter();
+
 
   const { data, isError, isSuccess } = useQuery({
     queryKey: ["notes", topic, page, category],
@@ -28,6 +30,7 @@ export default function NotesClient({ category }: NotesClientProps) {
   });
 
   const totalPages = data?.totalPages ?? 0;
+
 
 
   const updateSearchWord = useDebouncedCallback((searchWord: string) => {
@@ -40,11 +43,13 @@ export default function NotesClient({ category }: NotesClientProps) {
       <header className={css.toolbar}>
         <SearchBox onChange={updateSearchWord} />
         {isSuccess && totalPages > 1 && (
-          <Pagination
-            totalPages={totalPages}
-            page={page}
-            updatePage={setPage}
-          />
+<Pagination
+  page={page}
+  totalPages={totalPages}
+  updatePage={setPage}
+/>
+
+
         )}
         <Link
           href={"/notes/action/create"}
