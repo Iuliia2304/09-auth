@@ -16,7 +16,6 @@ export default function EditProfile() {
   const router = useRouter();
 
   useEffect(() => {
-    // Отримуємо поточні дані користувача
     getMe().then((user) => {
       setUserName(user.username);
     });
